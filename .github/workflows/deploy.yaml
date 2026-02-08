@@ -8,19 +8,17 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      -name Checkout Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-
-      -name: Deploy
-       uses: appleboy/ssh-action@v1.0.3
-       with:
-         host: ${{ secrets.SSH_HOST}
-         username: ubuntu
-         key: ${{ secrets.SSH_KEY }}
-         script: |
-           cd /home/ubuntu/node-ci-cd
-           git pull origin master
-           docker compose up -d --build
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/ubuntu/node-ci-cd
+            git pull origin master
+            docker compose up -d --build
